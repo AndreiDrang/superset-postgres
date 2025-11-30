@@ -25,3 +25,11 @@ DATA_CACHE_CONFIG: Dict[str, Any] = {
     "CACHE_KEY_PREFIX": "superset_data_cache",
     **CACHE_CONFIG,
 }
+
+CURRENCIES = ["USD", "EUR", "RUB", "BYN"]
+
+DEFAULT_FEATURE_FLAGS: Dict[str, bool] = {
+    "ENABLE_DASHBOARD_DOWNLOAD_WEBDRIVER_SCREENSHOT": True,
+}
+
+GUEST_TOKEN_JWT_SECRET: str = os.environ.get("GUEST_TOKEN_JWT_SECRET")
