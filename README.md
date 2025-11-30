@@ -46,19 +46,36 @@ make tag-latest
 
 ### Environment Variables
 
-The Superset configuration supports the following environment variables for database connection:
+The Superset configuration supports the following environment variables:
 
+**Database Connection:**
 - `SUPERSET_DATABASE_URI`
 - `SUPERSET__SQLALCHEMY_DATABASE_URI`
 - `DATABASE_URL`
 
-If none are set, it defaults to a local SQLite database.
+**Redis Cache Configuration:**
+- `CACHE_REDIS_HOST`
+- `CACHE_REDIS_PORT`
+- `CACHE_REDIS_DB`
+- `CACHE_REDIS_USER`
+- `CACHE_REDIS_PASSWORD`
+
+If no database URI is set, it defaults to a local SQLite database.
 
 ### Redis Cache
 
-The image is configured to use Redis for caching with the following settings:
-- **Metadata Cache**: `redis://localhost:6379/0` (prefix: `superset_metadata_cache`)
-- **Data Cache**: `redis://localhost:6379/0` (prefix: `superset_data_cache`)
+The image is configured to use Redis for caching with environment variable-based configuration:
+
+**Environment Variables:**
+- `CACHE_REDIS_HOST`: Redis server hostname (optional)
+- `CACHE_REDIS_PORT`: Redis server port (optional, defaults to 6379)
+- `CACHE_REDIS_DB`: Redis database number (optional, defaults to 0)
+- `CACHE_REDIS_USER`: Redis username (optional)
+- `CACHE_REDIS_PASSWORD`: Redis password (optional)
+
+**Cache Configuration:**
+- **Metadata Cache**: Uses `CACHE_*` environment variables (prefix: `superset_metadata_cache`)
+- **Data Cache**: Uses same Redis configuration (prefix: `superset_data_cache`)
 - **Default Timeout**: 600 seconds
 
 ## Usage Example
@@ -77,7 +94,11 @@ docker run -d \
 docker run -d \
   -p 8088:8088 \
   -e SUPERSET_DATABASE_URI="postgresql://user:password@host:5432/database" \
-  -e CACHE_REDIS_URL="redis://redis-host:6379/0" \
+  -e CACHE_REDIS_HOST="redis-host" \
+  -e CACHE_REDIS_PORT="6379" \
+  -e CACHE_REDIS_DB="0" \
+  -e CACHE_REDIS_USER="redisuser" \
+  -e CACHE_REDIS_PASSWORD="redispassword" \
   --name superset \
   andreidrang/psycopg-superset:5.0.1
 ```
