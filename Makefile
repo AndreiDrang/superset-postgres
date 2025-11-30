@@ -1,6 +1,6 @@
 # Docker image configuration
 IMAGE_NAME := andreidrang/psycopg-superset
-VERSION := 5.0.2
+VERSION := 5.0.3
 DOCKERFILE := Dockerfile
 BUILD_CONTEXT := .
 
