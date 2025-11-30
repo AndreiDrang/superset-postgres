@@ -9,6 +9,8 @@ This Docker image extends Apache Superset with:
 - Redis caching configuration
 - Custom Superset configuration
 
+**Docker Hub:** [andreidrang/psycopg-superset](https://hub.docker.com/repository/docker/andreidrang/psycopg-superset/general)
+
 ## Building the Image
 
 ### Using Docker Directly
